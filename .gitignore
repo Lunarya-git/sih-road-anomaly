@@ -1,0 +1,33 @@
+# ---- ML data & weights (too large for git) ----
+ml/data/*
+!ml/data/.gitkeep
+ml/weights/*
+!ml/weights/.gitkeep
+*.pt
+*.onnx
+*.tflite
+*.engine
+runs/
+
+# ---- Python ----
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
+*.egg-info/
+
+# ---- Notebooks ----
+.ipynb_checkpoints/
+
+# ---- OS / editor ----
+.DS_Store
+.vscode/
+.idea/
+*.log
+
+# ---- Backend / app (teammates can extend this) ----
+backend/node_modules/
+backend/.env
+app/node_modules/
+app/build/
