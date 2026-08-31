@@ -27,7 +27,7 @@ _ML_ROOT = Path(__file__).resolve().parent.parent  # .../sih-road-anomaly/ml
 
 DATA_CONFIG = _ML_ROOT / "configs" / "pothole-seg.yaml"
 BASE_WEIGHTS = "yolov8n-seg.pt"   # auto-downloads on first run
-EPOCHS = 50
+EPOCHS = 100
 IMG_SIZE = 640
 PROJECT_DIR = str(_ML_ROOT / "weights" / "runs")
 RUN_NAME = "pothole_seg_v1"
@@ -110,6 +110,29 @@ def print_summary(epoch_log: list, save_dir: str) -> None:
     print(f"  Results dir: {save_dir}")
     print("=" * 70 + "\n")
 
+    # Save a quick "best results" text file for easy reading
+    txt_path = Path(save_dir) / "best_results.txt"
+    with open(txt_path, "w", encoding="utf-8") as fh:
+        fh.write("=================================================\n")
+        fh.write(f" BEST RESULTS SUMMARY (Run: {Path(save_dir).name})\n")
+        fh.write("=================================================\n\n")
+        fh.write(f"Best Epoch     : {best['epoch']}\n\n")
+        fh.write("--- MASK (Segmentation) Metrics ---\n")
+        fh.write(f"mAP50          : {best['mask/mAP50']:.4f}\n")
+        fh.write(f"mAP50-95       : {best['mask/mAP50-95']:.4f}\n")
+        fh.write(f"F1 Score       : {best['mask/F1']:.4f}\n")
+        fh.write(f"Precision      : {best['mask/P']:.4f}\n")
+        fh.write(f"Recall         : {best['mask/R']:.4f}\n\n")
+        fh.write("--- BOX (Detection) Metrics ---\n")
+        fh.write(f"mAP50          : {best['box/mAP50']:.4f}\n")
+        fh.write(f"mAP50-95       : {best['box/mAP50-95']:.4f}\n")
+        fh.write(f"F1 Score       : {best['box/F1']:.4f}\n")
+        fh.write(f"Precision      : {best['box/P']:.4f}\n")
+        fh.write(f"Recall         : {best['box/R']:.4f}\n\n")
+        fh.write("=================================================\n")
+        fh.write(f"Best weights   : weights/best.pt\n")
+        fh.write("=================================================\n")
+
     # Save CSV alongside the Ultralytics results.csv
     csv_path = Path(save_dir) / "f1_metrics.csv"
     import csv
@@ -118,6 +141,7 @@ def print_summary(epoch_log: list, save_dir: str) -> None:
         writer = csv.DictWriter(fh, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(epoch_log)
+    print(f"  Best results summary saved to: {txt_path}")
     print(f"  F1 metrics saved to: {csv_path}\n")
 
 
@@ -155,6 +179,7 @@ def main() -> None:
             name=RUN_NAME,
             patience=20,       # early-stop if val metrics stall for 20 epochs
             plots=True,
+            device=0
         )
     finally:
         Path(tmp_path).unlink(missing_ok=True)
@@ -168,4 +193,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    main()
