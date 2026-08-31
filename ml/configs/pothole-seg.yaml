@@ -2,13 +2,15 @@
 # `path` is the dataset root; train/val/test below are resolved relative to it.
 # Adjust `path` if your folder name/location differs.
 
-path: ../data/potholes-roboflow
+path: ../data/potholes_roboflow
 train: train/images
 val: valid/images
 test: test/images
 
-nc: 2
-names: ['pothole', 'road']
+nc: 1
+names: ['pothole']
 
 # Source: https://universe.roboflow.com/pothole-vsmtu/potholes-and-roads-instance-segmentation
 # License: CC BY 4.0
+# Note: road class (class 1) dropped — only pothole (class 0) retained after
+#       label cleanup with src/fix_labels.py
