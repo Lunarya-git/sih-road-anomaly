@@ -1,0 +1,14 @@
+# Dataset config for Ultralytics YOLO segmentation training.
+# `path` is the dataset root; train/val/test below are resolved relative to it.
+# Adjust `path` if your folder name/location differs.
+
+path: ../data/potholes-roboflow
+train: train/images
+val: valid/images
+test: test/images
+
+nc: 2
+names: ['pothole', 'road']
+
+# Source: https://universe.roboflow.com/pothole-vsmtu/potholes-and-roads-instance-segmentation
+# License: CC BY 4.0
