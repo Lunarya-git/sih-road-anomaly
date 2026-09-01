@@ -2,7 +2,7 @@
 # `path` is the dataset root; train/val/test below are resolved relative to it.
 # Adjust `path` if your folder name/location differs.
 
-path: ../data/potholes_roboflow
+path: "../data/Potholes and Roads Instance Segmentation.v5i.yolov8"
 train: train/images
 val: valid/images
 test: test/images
