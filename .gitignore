@@ -1,13 +1,9 @@
-# ---- ML data & weights (too large for git) ----
+# ---- ML data (too large for git, not LFS-tracked) ----
 ml/data/*
 !ml/data/.gitkeep
-ml/weights/*
-!ml/weights/.gitkeep
-*.pt
-*.onnx
-*.tflite
-*.engine
-runs/
+
+# ---- ML weights are tracked via Git LFS (*.pt etc.) ----
+# Large model files are handled by LFS — see .gitattributes
 
 # ---- Python ----
 __pycache__/
