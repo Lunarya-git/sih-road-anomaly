@@ -28,7 +28,7 @@ import shutil
 from pathlib import Path
 
 SPLITS = ["train", "valid", "test"]
-DATA_ROOT = Path(__file__).resolve().parent.parent / "data" / "potholes_roboflow"
+DATA_ROOT = Path(__file__).resolve().parent.parent / "data" / "Potholes and Roads Instance Segmentation.v5i.yolov8"
 POTHOLE_CLASS_ID = 0
 
 

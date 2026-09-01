@@ -27,7 +27,7 @@ _ML_ROOT = Path(__file__).resolve().parent.parent  # .../sih-road-anomaly/ml
 
 DATA_CONFIG = _ML_ROOT / "configs" / "pothole-seg.yaml"
 BASE_WEIGHTS = "yolov8n-seg.pt"   # auto-downloads on first run
-EPOCHS = 100
+EPOCHS = 20
 IMG_SIZE = 640
 PROJECT_DIR = str(_ML_ROOT / "weights" / "runs")
 RUN_NAME = "pothole_seg_v1"
@@ -158,7 +158,7 @@ def main() -> None:
     # that Ultralytics reads directly.
     with open(DATA_CONFIG, encoding="utf-8") as f:
         data_cfg = yaml.safe_load(f)
-    data_cfg["path"] = str(_ML_ROOT / "data" / "potholes_roboflow")
+    data_cfg["path"] = str(_ML_ROOT / "data" / "Potholes and Roads Instance Segmentation.v5i.yolov8")
 
     with tempfile.NamedTemporaryFile(
         mode="w", suffix=".yaml", delete=False, encoding="utf-8"
@@ -179,7 +179,7 @@ def main() -> None:
             name=RUN_NAME,
             patience=20,       # early-stop if val metrics stall for 20 epochs
             plots=True,
-            device=0
+            device='cpu'
         )
     finally:
         Path(tmp_path).unlink(missing_ok=True)
